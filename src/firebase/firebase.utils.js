@@ -13,6 +13,31 @@ const config = {
   measurementId: "G-VHC3VR11FZ"
 };
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  console.log("TCL: createUserProfileDocument -> userAuth", userAuth);
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+  console.log("TCL: createUserProfileDocument -> snapShot", snapShot);
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData
+      });
+    } catch (error) {
+      console.log("TCL: createUserProfileDocument -> error", error);
+    }
+  }
+  return userRef;
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
