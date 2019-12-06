@@ -11,8 +11,6 @@ import { createStructuredSelector } from "reselect";
 
 import "./App.css";
 
-import { setCurrentUser } from "./redux/user/user.actions";
-
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
@@ -49,8 +47,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
