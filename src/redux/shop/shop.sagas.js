@@ -11,6 +11,7 @@ import {
   firestore,
   convertCollectionsSnapshotToMap
 } from "../../firebase/firebase.utils";
+import UserActionTypes from "../user/user.types";
 
 export function* fetchCollectionsAsync() {
   yield console.log("i am fired");
